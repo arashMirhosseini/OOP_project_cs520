@@ -4,7 +4,7 @@ require_relative "player"
 require_relative "humanPlayer"
 
 class Game
-
+  attr_accessor :curr_player, :player1, :player2
   def initialize
     @board = Board.new
     @display = Display.new(@board)
@@ -54,4 +54,4 @@ class Game
   end
 end
 
-g = Game.new
+# g = Game.new
