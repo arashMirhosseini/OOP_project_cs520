@@ -51,7 +51,7 @@ class Pawn < Piece
     x, y = x+dx, y+dy
     position = [x, y]
     if @board.valid_pos?(position)
-      if @board[position].color != self.color
+	    if @board[position].color != self.color && !@board.empty?(position)
         moves << position
       end
     end
