@@ -9,24 +9,27 @@ class Pawn < Piece
 
   def moves
     moves = []
-    move_dirs.each do |dx, dy|
-      moves.concat(move_forward_not_blocked(dx, dy))
+    move_dirs_forward.each do |dx, dy|
+      moves.concat(forward_moves(dx, dy))
     end
-    side_attacks.each do |dx, dy|
+    move_dirs_side.each do |dx, dy|
       moves.concat(attack_moves(dx,dy))
     end
     moves
   end
-
-  def move_dirs
+  
+  protected
+  def move_dirs_forward
     self.color == :blue ? [[-1,0], [-2,0]] : [[1,0], [2,0]]
   end
 
-  def side_attacks
+  protected
+  def move_dirs_side
     self.color == :blue ? [[-1,1], [-1,-1]] : [[1,-1], [1,1]]
   end
 
-  def move_forward_not_blocked(dx, dy)
+  private
+  def forward_moves(dx, dy)
     moves = []
     x, y = self.position
     x, y = x+dx, y+dy
@@ -45,6 +48,7 @@ class Pawn < Piece
     moves
   end
 
+  private
   def attack_moves(dx, dy)
     moves = []
     x, y = self.position

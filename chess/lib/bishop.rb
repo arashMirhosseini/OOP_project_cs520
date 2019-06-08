@@ -9,6 +9,7 @@ class Bishop < Piece
     '♝'.colorize(color)
   end
   
+  protected
   def move_dirs
     [[-1, -1],[1, -1],[-1, 1], [1, 1]]
   end

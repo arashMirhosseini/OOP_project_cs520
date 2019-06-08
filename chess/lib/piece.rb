@@ -9,16 +9,16 @@ class Piece
     board.add_piece(self, position)
   end
 
-
-
   def symbol
-  
+    # subclass implements this
+    raise NotImplementedError  
   end
 
   def valid_moves
     self.moves.reject {|end_pos| move_into_check?(end_pos)}
   end
 
+  private
   def move_into_check?(end_pos)
     new_board = @board.dup
     new_board.move_piece!(position, end_pos)

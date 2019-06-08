@@ -41,7 +41,28 @@ describe Bishop do
 			
 			expect(redBishopOnFreshBoard.valid_moves).to match_array([[1,1],[2,0],[1,3],[2,4],[3,5],[4,6],[5,7]])
 		end			
+
+		it "blue Bishop can move digonally as long as its not blocked by red pieces[Right Only]" do
+			board = blueBishopOnFreshBoard.board
+			board.move_piece(:blue,[6,3],[4,3])
+
+			expect(blueBishopOnFreshBoard.valid_moves).to match_array([[6,3],[5,4],[4,5],[3,6],[2,7]])
+		end	
+
+		it "blue Bishop can move digonally as long as its not blocked by red pieces[Left Only]" do
+			board = blueBishopOnFreshBoard.board
+			board.move_piece(:blue,[6,1],[4,1])
+
+			expect(blueBishopOnFreshBoard.valid_moves).to match_array([[6,1],[5,0]])
+		end	
 		
+		it "blue Bishop can move digonally as long as its not blocked by red pieces[Left & Right]" do
+			board = blueBishopOnFreshBoard.board
+			board.move_piece(:blue,[6,1],[4,1])
+			board.move_piece(:blue,[6,3],[4,3])
+			
+			expect(blueBishopOnFreshBoard.valid_moves).to match_array([[6,1],[5,0],[6,3],[5,4],[4,5],[3,6],[2,7]])
+		end		
 	end
 
 	describe "#symbol" do

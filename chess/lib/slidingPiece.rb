@@ -14,6 +14,7 @@ module SlidingPiece
     raise NotImplementedError
   end
 
+  private
   def grow_unblocked_moves_in_dir(dx, dy)
     curr_x, curr_y = position 
     moves = []
