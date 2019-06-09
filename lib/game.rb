@@ -58,5 +58,3 @@ class Game
     @curr_player = @curr_player == @player1 ? @player2 : @player1
   end
 end
-
-# g = Game.new
