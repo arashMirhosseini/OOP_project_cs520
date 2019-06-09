@@ -18,7 +18,7 @@ ruby playchess.rb
 ```
 ## Tests
 RSpec is used for unit testing. RSpec gem is added to the Gemfile.
-# Run tests with:
+* Run tests with:
 ```
 Rspec spec/
 ```
