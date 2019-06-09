@@ -9,35 +9,44 @@ class Pawn < Piece
 
   def moves
     moves = []
-    move_dirs.each do |dx, dy|
-      moves.concat(move_forward_not_blocked(dx, dy))
+    legal_forward_moves.each do |dx, dy|
+      moves.concat(try_forward_move(dx, dy))
     end
-    side_attacks.each do |dx, dy|
-      moves.concat(attack_moves(dx,dy))
+    legal_attack_moves.each do |dx, dy|
+      moves.concat(try_attack_move(dx,dy))
     end
     moves
   end
-
-  def move_dirs
+  
+  def start_row?
+	self.color == :blue ? self.position[0] == 6 : self.position[0] == 1
+  end
+  
+  def promotion_row?
+	self.color == :blue ? self.position[0] == 0 : self.position[0] == 7
+  end  
+  
+  private
+  def legal_forward_moves
     self.color == :blue ? [[-1,0], [-2,0]] : [[1,0], [2,0]]
   end
 
-  def side_attacks
+  private
+  def legal_attack_moves
     self.color == :blue ? [[-1,1], [-1,-1]] : [[1,-1], [1,1]]
   end
 
-  def move_forward_not_blocked(dx, dy)
+  private
+  def try_forward_move(dx, dy)
     moves = []
-    x, y = self.position
-    x, y = x+dx, y+dy
-    new_position = [x, y]
+	new_position = self.position.zip([dx,dy]).map(&:sum)
     if dx.abs != 2
       if @board.empty?(new_position) && @board.valid_pos?(new_position)
         moves << new_position
         position = new_position
       end
     else
-      if @board.empty?(new_position) && (self.position[0] == 1 || self.position[0] == 6)
+      if @board.empty?(new_position) && self.start_row?
         moves << new_position
         position = new_position
       end
@@ -45,18 +54,16 @@ class Pawn < Piece
     moves
   end
 
-  def attack_moves(dx, dy)
+  private
+  def try_attack_move(dx, dy)
     moves = []
-    x, y = self.position
-    x, y = x+dx, y+dy
-    position = [x, y]
-    if @board.valid_pos?(position)
-	    if @board[position].color != self.color && !@board.empty?(position)
-        moves << position
+	new_position = self.position.zip([dx,dy]).map(&:sum)
+    if @board.valid_pos?(new_position)
+	    if @board[new_position].color != self.color && !@board.empty?(new_position)
+        moves << new_position
       end
     end
     moves
   end
-
-  
+	
 end

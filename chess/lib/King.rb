@@ -9,7 +9,8 @@ class King < Piece
     '♔'.colorize(color)
   end
 
-  def move_diffs
+  private
+  def legal_moves
     [
       [-1,-1], [-1,0], [-1, 1],
       [0,-1], [0, 1],

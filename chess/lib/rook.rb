@@ -9,7 +9,8 @@ class Rook < Piece
     '♜'.colorize(color)
   end
 
-  def move_dirs
+  private
+  def legal_moves
     [[-1, 0], [1, 0], [0, -1], [0, 1]]
   end
   

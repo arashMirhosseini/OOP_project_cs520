@@ -9,7 +9,8 @@ class Knight < Piece
     '♘'.colorize(color)
   end
 
-  def move_diffs
+  private
+  def legal_moves
     [
       [-2,-1], [-2,1], [-1,-2], [-1,2],
       [1,-2], [1,2], [2,-1], [2, 1]
