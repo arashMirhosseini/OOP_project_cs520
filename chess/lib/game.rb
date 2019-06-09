@@ -49,6 +49,7 @@ class Game
     puts "Game Over!"
   end
 
+  private 
   def swap_turn!
     @curr_player = @curr_player == @player1 ? @player2 : @player1
   end
