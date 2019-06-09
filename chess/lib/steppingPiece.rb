@@ -2,29 +2,27 @@ module SteppingPiece
   
   def moves
     moves = []
-    move_diffs.each do |x, y|
-      moves.concat(move_steps(x,y))
+    legal_moves.each do |dx, dy|
+      moves.concat(try_stepping_move(dx,dy))
     end
     moves
   end
 
-  def move_diffs
+  def legal_moves
     # implemeted in the class
   end
 
-  def move_steps(dx, dy)
-    curr_x, curr_y = position
+  private
+  def try_stepping_move(dx, dy)
     moves = []
-    
-    curr_x, curr_y = curr_x+dx, curr_y+dy
-    position = [curr_x, curr_y]
+	new_position = self.position.zip([dx,dy]).map(&:sum)
 
-    if @board.valid_pos?(position)
+    if @board.valid_pos?(new_position)
       # p position
-      if @board.empty?(position)
-        moves << position
+      if @board.empty?(new_position)
+        moves << new_position
       else
-          moves << position if @board[position].color != color
+          moves << new_position if @board[new_position].color != color
           
       end
     end

@@ -3,31 +3,30 @@ module SlidingPiece
   def moves
     # array of places that a piece can move to
     moves = []
-    move_dirs.each do |x ,y|
-      moves.concat(grow_unblocked_moves_in_dir(x, y))
+    legal_moves.each do |dx ,dy|
+      moves.concat(try_sliding_move(dx, dy))
     end
     moves
   end
 
-  def move_dirs
+  def legal_moves
     # subclass implements this
     raise NotImplementedError
   end
 
   private
-  def grow_unblocked_moves_in_dir(dx, dy)
-    curr_x, curr_y = position 
+  def try_sliding_move(dx, dy)
     moves = []
-    # p "input: #{position}"
+    current_position = self.position 	
     loop do
-      curr_x, curr_y = curr_x + dx, curr_y + dy
-      position = [curr_x, curr_y]
-      break if !@board.valid_pos?(position)
-      if board.empty?(position)
-        moves << position
+	  new_position = current_position.zip([dx,dy]).map(&:sum)
+      current_position = new_position
+      break if !@board.valid_pos?(current_position)
+      if board.empty?(current_position)
+        moves << current_position
       else
-        if color != @board[position].color
-          moves << position
+        if color != @board[current_position].color
+          moves << current_position
         end
         break
       end

@@ -10,7 +10,7 @@ class Bishop < Piece
   end
   
   protected
-  def move_dirs
+  def legal_moves
     [[-1, -1],[1, -1],[-1, 1], [1, 1]]
   end
 end

@@ -9,38 +9,40 @@ class Pawn < Piece
 
   def moves
     moves = []
-    move_dirs_forward.each do |dx, dy|
-      moves.concat(forward_moves(dx, dy))
+    legal_forward_moves.each do |dx, dy|
+      moves.concat(try_forward_move(dx, dy))
     end
-    move_dirs_side.each do |dx, dy|
-      moves.concat(attack_moves(dx,dy))
+    legal_attack_moves.each do |dx, dy|
+      moves.concat(try_attack_move(dx,dy))
     end
     moves
   end
   
+  def first_row?
+	self.color == :blue ? self.position[0] == 6 : self.position[0] == 1
+  end
+  
   protected
-  def move_dirs_forward
+  def legal_forward_moves
     self.color == :blue ? [[-1,0], [-2,0]] : [[1,0], [2,0]]
   end
 
   protected
-  def move_dirs_side
+  def legal_attack_moves
     self.color == :blue ? [[-1,1], [-1,-1]] : [[1,-1], [1,1]]
   end
 
   private
-  def forward_moves(dx, dy)
+  def try_forward_move(dx, dy)
     moves = []
-    x, y = self.position
-    x, y = x+dx, y+dy
-    new_position = [x, y]
+	new_position = self.position.zip([dx,dy]).map(&:sum)
     if dx.abs != 2
       if @board.empty?(new_position) && @board.valid_pos?(new_position)
         moves << new_position
         position = new_position
       end
     else
-      if @board.empty?(new_position) && (self.position[0] == 1 || self.position[0] == 6)
+      if @board.empty?(new_position) && self.first_row?
         moves << new_position
         position = new_position
       end
@@ -49,18 +51,15 @@ class Pawn < Piece
   end
 
   private
-  def attack_moves(dx, dy)
+  def try_attack_move(dx, dy)
     moves = []
-    x, y = self.position
-    x, y = x+dx, y+dy
-    position = [x, y]
-    if @board.valid_pos?(position)
-	    if @board[position].color != self.color && !@board.empty?(position)
-        moves << position
+	new_position = self.position.zip([dx,dy]).map(&:sum)
+    if @board.valid_pos?(new_position)
+	    if @board[new_position].color != self.color && !@board.empty?(new_position)
+        moves << new_position
       end
     end
     moves
   end
-
-  
+	
 end
