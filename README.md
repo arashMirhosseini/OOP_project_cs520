@@ -3,7 +3,7 @@
 ## Description
 Ruby application for two players playing chess game by taking alternative turns
 
-## Requirements
+## Requirement
 * Ruby 2.x
 
 ## How to play?
@@ -14,7 +14,7 @@ git clone https://github.com/arashMirhosseini/OOP_project_cs520.git
 * Go to the chess directory
 * Start the game with:
 ```
-ruby game.rb
+ruby playchess.rb
 ```
 ## Tests
 RSpec is used for unit testing. RSpec gem is added to the Gemfile.
