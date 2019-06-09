@@ -15,11 +15,11 @@ class Piece
   end
 
   def valid_moves
-    self.moves.reject {|end_pos| move_into_check?(end_pos)}
+    self.moves.reject {|end_pos| possible_check?(end_pos)}
   end
 
   private
-  def move_into_check?(end_pos)
+  def possible_check?(end_pos)
     new_board = @board.dup
     new_board.move_piece!(position, end_pos)
     new_board.in_check?(color)

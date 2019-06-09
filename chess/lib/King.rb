@@ -9,7 +9,7 @@ class King < Piece
     '♔'.colorize(color)
   end
 
-  protected
+  private
   def legal_moves
     [
       [-1,-1], [-1,0], [-1, 1],

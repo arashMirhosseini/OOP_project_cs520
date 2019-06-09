@@ -18,16 +18,20 @@ class Pawn < Piece
     moves
   end
   
-  def first_row?
+  def start_row?
 	self.color == :blue ? self.position[0] == 6 : self.position[0] == 1
   end
   
-  protected
+  def promotion_row?
+	self.color == :blue ? self.position[0] == 0 : self.position[0] == 7
+  end  
+  
+  private
   def legal_forward_moves
     self.color == :blue ? [[-1,0], [-2,0]] : [[1,0], [2,0]]
   end
 
-  protected
+  private
   def legal_attack_moves
     self.color == :blue ? [[-1,1], [-1,-1]] : [[1,-1], [1,1]]
   end
@@ -42,7 +46,7 @@ class Pawn < Piece
         position = new_position
       end
     else
-      if @board.empty?(new_position) && self.first_row?
+      if @board.empty?(new_position) && self.start_row?
         moves << new_position
         position = new_position
       end

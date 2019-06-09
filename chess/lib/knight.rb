@@ -9,7 +9,7 @@ class Knight < Piece
     '♘'.colorize(color)
   end
 
-  protected
+  private
   def legal_moves
     [
       [-2,-1], [-2,1], [-1,-2], [-1,2],
