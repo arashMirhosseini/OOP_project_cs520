@@ -48,7 +48,6 @@ class Board
     self[end_pos] = piece
     self[start_pos] = @sentinel
     piece.position = end_pos
-    nil
   end
   
   def move_piece(turn_color, start_pos, end_pos)

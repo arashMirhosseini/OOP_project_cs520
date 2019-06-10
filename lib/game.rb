@@ -45,9 +45,8 @@ class Game
         puts "Something went wrong: #{e.message}"
         retry
       end 
-      
+      system "clear"
       @display.render
-      
       swap_turn!
     end
     puts "Game Over!"
