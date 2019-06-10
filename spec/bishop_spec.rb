@@ -9,6 +9,8 @@ describe Bishop do
 	
 	let(:redBishopOnFreshBoard) { freshBoard[[0,2]] }
 	let(:blueBishopOnFreshBoard) { freshBoard[[7,2]] }
+	let(:bishopOnEmptyBoard) { Bishop.new(:red, emptyBoard, [3,3]) }
+
 
 	describe "#valid_moves" do
 	
