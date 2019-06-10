@@ -27,28 +27,32 @@ class Pawn < Piece
   end  
   
   private
-
   def legal_forward_moves
     self.color == :blue ? [[-1,0], [-2,0]] : [[1,0], [2,0]]
   end
 
+  private
   def legal_attack_moves
     self.color == :blue ? [[-1,1], [-1,-1]] : [[1,-1], [1,1]]
   end
 
+  private
   def try_forward_move(dx, dy)
     moves = []
-    new_position = self.position.zip([dx,dy]).map(&:sum)
-    if dx.abs != 2 && @board.empty?(new_position) && @board.valid_pos?(new_position)
-      moves << new_position
-      position = new_position
+	new_position = self.position.zip([dx,dy]).map(&:sum)
+    if dx.abs != 2 || self.start_row?
+      if @board.empty?(new_position) && @board.valid_pos?(new_position)
+        moves << new_position
+        position = new_position
+      end
     end
     moves
   end
 
+  private
   def try_attack_move(dx, dy)
     moves = []
-    new_position = self.position.zip([dx,dy]).map(&:sum)
+	new_position = self.position.zip([dx,dy]).map(&:sum)
     if @board.valid_pos?(new_position)
 	    if @board[new_position].color != self.color && !@board.empty?(new_position)
         moves << new_position
