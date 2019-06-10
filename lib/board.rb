@@ -18,23 +18,6 @@ class Board
     fill_front_row(:red)
   end
 
-  def fill_back_row(color)
-    back_pieces = [
-      Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook
-    ]
-    i = color == :blue ? 7 : 0
-    back_pieces.each_with_index do |class_name, j|
-      class_name.new(color, self, [i, j])
-    end
-  end
-
-  def fill_front_row(color)
-    i = color == :blue ? 6 : 1
-    8.times do |j|
-      Pawn.new(color, self, [i,j])
-    end
-  end
-
   def [](pos)
     @rows[pos[0]][pos[1]]
   end
@@ -45,7 +28,6 @@ class Board
 
   def add_piece(piece, pos)
     raise 'position not empty' unless empty?(pos)
-
     self[pos] = piece
   end
 
@@ -69,7 +51,6 @@ class Board
     nil
   end
   
-
   def move_piece(turn_color, start_pos, end_pos)
     raise 'start position is empty' if empty?(start_pos)
 
@@ -83,12 +64,6 @@ class Board
     end
 
     move_piece!(start_pos, end_pos)
-  end
-
-  def possible_move_piece?(start_pos, end_pos)
-    piece = self[start_pos]
-   
-    piece.moves.include?(end_pos)
   end
 
   def in_check?(color)
@@ -109,19 +84,6 @@ class Board
     valids_bol && in_check?(color)
   end
 
-  def pieces(color)
-    pieces = []
-    8.times do |i|
-      8.times do |j|
-        pos = [i,j]
-        if self[pos].color == color
-          pieces << self[pos]
-        end
-      end
-    end 
-    pieces
-  end
-
   def king_pos(color)
     8.times do |i|
       8.times do |j|
@@ -137,10 +99,44 @@ class Board
     new_board = Board.new(false)
     pieces = pieces(:red) + pieces(:blue)
     pieces.each do |piece|
-      # p "#{piece.class} + #{piece.position}"
       piece.class.new(piece.color, new_board, piece.position)
     end
     new_board
   end
 
+  def pieces(color)
+    pieces = []
+    8.times do |i|
+      8.times do |j|
+        pos = [i,j]
+        if self[pos].color == color
+          pieces << self[pos]
+        end
+      end
+    end 
+    pieces
+  end
+
+  private
+  def fill_back_row(color)
+    back_pieces = [
+      Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook
+    ]
+    i = color == :blue ? 7 : 0
+    back_pieces.each_with_index do |class_name, j|
+      class_name.new(color, self, [i, j])
+    end
+  end
+
+  def fill_front_row(color)
+    i = color == :blue ? 6 : 1
+    8.times do |j|
+      Pawn.new(color, self, [i,j])
+    end
+  end
+
+  def possible_move_piece?(start_pos, end_pos)
+    piece = self[start_pos]
+    piece.moves.include?(end_pos)
+  end
 end

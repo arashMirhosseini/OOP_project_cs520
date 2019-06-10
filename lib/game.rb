@@ -32,14 +32,14 @@ class Game
     loop do
       break if @board.checkmate?(@curr_player.color)
       begin
-	  if @board.in_check?(@curr_player.color)
-		puts "It's #{@curr_player.color}'s turn:King is in Check"
-	  else
-		puts "It's #{@curr_player.color}'s turn"
-	  end
-      pos = @curr_player.make_move
-      start_pos, end_pos = pos
-     
+        if @board.in_check?(@curr_player.color)
+          puts "It's #{@curr_player.color}'s turn: King is in Check"
+        else
+          puts "It's #{@curr_player.color}'s turn"
+        end
+        pos = @curr_player.make_move
+        start_pos, end_pos = pos
+    
         @board.move_piece(@curr_player.color, start_pos, end_pos)
       rescue => e
         puts "Something went wrong: #{e.message}"
