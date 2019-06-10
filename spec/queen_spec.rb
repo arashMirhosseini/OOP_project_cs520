@@ -24,10 +24,10 @@ describe Queen do
 	end
 
 	describe "#symbol" do
-		it "red pawn symbol" do
+		it "red Queen symbol" do
 			expect(redQueenOnFreshBoard.symbol).to eq('♕'.colorize(:red))
 		end	
-		it "blue pawn symbol" do
+		it "blue Queen symbol" do
 			expect(blueQueenOnFreshBoard.symbol).to eq('♕'.colorize(:blue))
 		end			
 	end
