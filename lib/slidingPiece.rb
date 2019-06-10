@@ -19,19 +19,19 @@ module SlidingPiece
     moves = []
     current_position = self.position 	
     loop do
-	  new_position = current_position.zip([dx,dy]).map(&:sum)
+	    new_position = current_position.zip([dx,dy]).map(&:sum)
       current_position = new_position
       break if !@board.valid_pos?(current_position)
-      if board.empty?(current_position)
-        moves << current_position
-      else
-        if color != @board[current_position].color
-          moves << current_position
-        end
-        break
-      end
+      break if !slidable_position?(current_position)
+      moves << current_position
+
     end
     moves
+  end
+
+  def slidable_position?(current_position)
+    board.empty?(current_position) || 
+      color != @board[current_position].color
   end
 
 end
