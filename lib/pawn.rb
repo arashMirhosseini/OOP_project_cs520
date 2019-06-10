@@ -39,16 +39,9 @@ class Pawn < Piece
   def try_forward_move(dx, dy)
     moves = []
     new_position = self.position.zip([dx,dy]).map(&:sum)
-    if dx.abs != 2
-      if @board.empty?(new_position) && @board.valid_pos?(new_position)
-        moves << new_position
-        position = new_position
-      end
-    else
-      if @board.empty?(new_position) && self.start_row?
-        moves << new_position
-        position = new_position
-      end
+    if dx.abs != 2 && @board.empty?(new_position) && @board.valid_pos?(new_position)
+      moves << new_position
+      position = new_position
     end
     moves
   end
