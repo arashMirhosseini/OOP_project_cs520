@@ -1,5 +1,5 @@
 require "rspec"
-require "pawn"
+require "rook"
 require "board"
 
 
