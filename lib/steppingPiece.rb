@@ -15,15 +15,12 @@ module SteppingPiece
   private
   def try_stepping_move(dx, dy)
     moves = []
-	new_position = self.position.zip([dx,dy]).map(&:sum)
-
+	  new_position = self.position.zip([dx,dy]).map(&:sum)
     if @board.valid_pos?(new_position)
-      # p position
       if @board.empty?(new_position)
         moves << new_position
       else
-          moves << new_position if @board[new_position].color != color
-          
+        moves << new_position if @board[new_position].color != color          
       end
     end
     moves
